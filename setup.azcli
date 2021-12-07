@@ -1,0 +1,8 @@
+az aks create \
+ --network-plugin="azure" \
+ --network-policy="calico" \
+ --enable-managed-identity \
+ --enable-pod-identity \
+ --name="my-cluster"
+
+ mkdir -p ./clusters/my-cluster/flux-system
