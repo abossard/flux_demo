@@ -5,4 +5,6 @@ az aks create \
  --enable-pod-identity \
  --name="my-cluster"
 
- mkdir -p ./clusters/my-cluster/flux-system
+mkdir -p ./clusters/anbossaraksagw/flux-system
+flux install \
+  --export > ./clusters/anbossaraksagw/flux-system/gotk-components.yaml
