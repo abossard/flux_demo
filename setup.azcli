@@ -5,6 +5,22 @@ az aks create \
  --enable-pod-identity \
  --name="my-cluster"
 
+echo ". <(flux completion zsh)" >> ~/.zshrc
+
 mkdir -p ./clusters/anbossaraksagw/flux-system
 flux install \
   --export > ./clusters/anbossaraksagw/flux-system/gotk-components.yaml
+
+kubectl apply -f ./clusters/anbossaraksagw/flux-system/gotk-components.yaml
+
+git@github.com:abossard/flux_demo.git
+
+flux create source git flux-system \
+    --url=https://github.com/abossard/flux_demo.git \
+    --branch=main
+
+flux create kustomization flux-system \
+  --source=flux-system \
+  --path="./clusters/anbossaraksagw" \
+  --prune=true \
+  --interval=10m
